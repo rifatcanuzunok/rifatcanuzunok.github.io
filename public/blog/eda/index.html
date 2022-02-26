@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+<meta itemprop="name" content="Keşifçi Veri Analizi">
+<meta itemprop="description" content="Keşifçi Veri Analizi (/EDA) Nedir? Keşifçi veri analizi, elimizdeki veri setinin ana bileşenlerinin özetini çıkararak ve genelde grafikler kullanarak anlam çıkarmaya yarayan bir analiz yöntemidir. Özellikle bir makine öğrenmesi modeli kurmadan önce bu aşama kritik derecede önemlidir. Hem elimizde veri seti hakkında bize önemli fikirler verip, veriyi daha iyi tanımamızı sağlar hem de makine öğrenmesi algoritmalarına veri setini düzgün bir şekilde verdiğimizden emin olmamızı sağlar. Histogram, kutu grafiği ve saçılım grafiği sıklıkla başvurulan grafik yöntemlerdendir."><meta itemprop="datePublished" content="2022-02-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-02-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2702">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="Keşifçi Veri Analizi" />
+<meta property="og:description" content="Keşifçi Veri Analizi (/EDA) Nedir? Keşifçi veri analizi, elimizdeki veri setinin ana bileşenlerinin özetini çıkararak ve genelde grafikler kullanarak anlam çıkarmaya yarayan bir analiz yöntemidir. Özellikle bir makine öğrenmesi modeli kurmadan önce bu aşama kritik derecede önemlidir. Hem elimizde veri seti hakkında bize önemli fikirler verip, veriyi daha iyi tanımamızı sağlar hem de makine öğrenmesi algoritmalarına veri setini düzgün bir şekilde verdiğimizden emin olmamızı sağlar. Histogram, kutu grafiği ve saçılım grafiği sıklıkla başvurulan grafik yöntemlerdendir." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/blog/eda/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2022-02-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-24T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Keşifçi Veri Analizi"/>
+<meta name="twitter:description" content="Keşifçi Veri Analizi (/EDA) Nedir? Keşifçi veri analizi, elimizdeki veri setinin ana bileşenlerinin özetini çıkararak ve genelde grafikler kullanarak anlam çıkarmaya yarayan bir analiz yöntemidir. Özellikle bir makine öğrenmesi modeli kurmadan önce bu aşama kritik derecede önemlidir. Hem elimizde veri seti hakkında bize önemli fikirler verip, veriyi daha iyi tanımamızı sağlar hem de makine öğrenmesi algoritmalarına veri setini düzgün bir şekilde verdiğimizden emin olmamızı sağlar. Histogram, kutu grafiği ve saçılım grafiği sıklıkla başvurulan grafik yöntemlerdendir."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="https://example.com/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://example.com/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://example.com/favicon-16x16.png">
+	<link rel="manifest" href="https://example.com/site.webmanifest">
+	<link rel="mask-icon" href="https://example.com/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="https://example.com/favicon.ico">
+
+	<title>Keşifçi Veri Analizi</title>
+	<link rel="stylesheet" href="https://example.com/css/style.min.037b6ee8f8c1baab6a3d0a9da11c3ff18a7552471f16c59fd98538d5ce99208b.css" integrity="sha256-A3tu6PjBuqtqPQqdoRw/8Yp1UkcfFsWf2YU41c6ZIIs=" crossorigin="anonymous">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://example.com">Rıfatcan Uzunok</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					
+				<a href="https://example.com/blog/">Blog</a>
+				<a href="https://example.com/projects/">Projects</a>
+				<a href="http://localhost:55678">CV</a>
+
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="mailto:rifatcanuzunok@gmail.com" target="_blank" rel="noopener me" title="Email"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a><a href="https://www.linkedin.com/in/rifatcanuzunok" target="_blank" rel="noopener me" title="Linkedin"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a><a href="https://github.com/rifatcanuzunok" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://example.com/blog/">Blog</a></li>
+			<li><a href="https://example.com/projects/">Projects</a></li>
+			<li><a href="http://localhost:55678">CV</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner thin animated fadeIn faster">
+		<h1>Keşifçi Veri Analizi</h1>
+		<div class="content">
+			<h2 id="keşifçi-veri-analizi-eda-nedir">Keşifçi Veri Analizi (/EDA) Nedir?<a href="#keşifçi-veri-analizi-eda-nedir" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Keşifçi veri analizi, elimizdeki veri setinin ana bileşenlerinin özetini çıkararak ve genelde grafikler kullanarak anlam çıkarmaya yarayan bir analiz yöntemidir. Özellikle bir makine öğrenmesi modeli kurmadan önce bu aşama kritik derecede önemlidir. Hem elimizde veri seti hakkında bize önemli fikirler verip, veriyi daha iyi tanımamızı sağlar hem de makine öğrenmesi algoritmalarına veri setini düzgün bir şekilde verdiğimizden emin olmamızı sağlar. Histogram, kutu grafiği ve saçılım grafiği sıklıkla başvurulan grafik yöntemlerdendir.</p>
+<h2 id="keşifçi-veri-analizi-nasıl-yapılır">Keşifçi Veri Analizi Nasıl Yapılır?<a href="#keşifçi-veri-analizi-nasıl-yapılır" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Keşifçi veri analizi için kesin olarak uygulanması gereken yöntemler ve takip edilmesi gereken adımlar yoktur. Bu yüzden bu sorunun cevabı elimizdeki veri setine göre değişkenlik gösterecektir. Ancak bu yazıda bir örnek üzerinden keşifçi veri analizi nasıl yapılır, genel bir fikir vermesi açısından göstermeye çalışacağım.</p>
+<h2 id="veri-kaynağı">Veri Kaynağı<a href="#veri-kaynağı" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Analiz edeceğimiz veriyi bulmak için temelde 2 kaynağımız vardır.</p>
+<p>1- Özel Kaynaklar</p>
+<p>2- Açık Kaynaklar</p>
+<h3 id="özel-kaynaklar">Özel Kaynaklar<a href="#özel-kaynaklar" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>İsminden de anlaşılabileceği gibi, özel veri kaynakları genellikle özel şirketler tarafından, sağlanır ve genellikle şirketle ilgili iç analizler yapılması için sağlanır. Bu tarz verilere genellikle veri sağlayıcısıyla bir bağlantımız yok ise ulaşamayız.</p>
+<h3 id="açık-kaynaklar">Açık Kaynaklar<a href="#açık-kaynaklar" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Herkesin ulaşabileceği veri kaynaklarıdır. Herhangi ekstra bir izne ihtiyaç olmaksızın herkesin alıp kullanabileceği verileri içerisinde barındırırlar.</p>
+<ul>
+<li><a href="https://www.kaggle.com/">https://www.kaggle.com/</a></li>
+<li><a href="https://archive.ics.uci.edu/ml/index.php">https://archive.ics.uci.edu/ml/index.php</a></li>
+<li><a href="https://github.com/awesom/EDAta/awesome-public-datasets">https://github.com/awesom/EDAta/awesome-public-datasets</a></li>
+</ul>
+<p>Keşifçi Veri Analizine başlayabilmemiz için öncelikle veri setini bulmamız gerekiyordu. Açık veri seti kaynaklarına birkaç örnek verdiğimize göre, Veri temizleme adımına geçebiliriz.</p>
+<h2 id="veri-temizleme">Veri Temizleme<a href="#veri-temizleme" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Yeni bir veri seti ile karşılaştığımızda ondan belli anlamlar çıkarabilmek için öncelikle veri setinin temel hatlarına hakim olduğumuzdan emin olmamız gerekir. Veri temizleme adımı temelde veri içerisindeki düzensizlikleri temizleyip, veriye genel bir çerçeve çizdiğimiz adım olarak karşımıza çıkar. Veri içerisindeki düzensizlikler karşımıza</p>
+<ul>
+<li>Eksik Değerler</li>
+<li>Yanlış tanımlanmış değişken tipleri</li>
+<li>Yanlış değişken isimleri</li>
+<li>Yanlış değerler</li>
+<li>Uç değerler / Anomaliler</li>
+</ul>
+<p>gibi pek çok farklı şekilde çıkabilir.</p>
+<p>Bu yazıda kullandığım veri seti <a href="https://github.com/Kaushik-Varma/Marketing_Data_Analysis">buradan</a> bulunabilir.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Kullanacağımız kütüphaneleri import ediyoruz.</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Marketing Analysis isimli veri setini okutuyoruz.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;datasets/Marketing_Analysis.csv&#39;</span><span class="p">)</span>
+<span class="c1"># İlk 5 gözleme bakalım</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled.png" alt="Untitled"></p>
+<p>Veri setine baktığımızda, doğru olmayan bazı şeyler olduğu net bir şekilde gözümüze çarpıyor. İlk satırda veri setinin başlığı, diğer satırda ise veri setlerinin toplu isimleri görülüyor. Ancak veri yapımıza uygun olması için değişken isimlerinin bulunduğu satırdan itibaren okunması gerekirdi. Bu yüzden ilk 2 satırı atlayıp veriyi tekrar okutuyoruz.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;datasets/Marketing_Analysis.csv&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled1.png" alt="Untitled"></p>
+<p>Bu şekilde baktığımızda çok daha anlamlı bir veri seti yapısı elde ettiğimizi görebiliyoruz.</p>
+<p>Genel olarak bir veri setinin satır ve sütunlarıyla ilgili yapmamız gereken düzenlemeler şu şekilde sıralanabilir.</p>
+<ol>
+<li>Satır ve sütunlarda özet bilgi içeren değerler silinir. (Örnek veri setindeki ilk 2 satır gibi.)</li>
+<li>Başlık ve altbilgilerin gözlem birimleri içerisinde göründüğü durumlarda silme işlemi yapılır.</li>
+<li>Tamamen boş olan gözlemler silinir.</li>
+<li>Birkaç değişken, daha anlamlı tek bir değişken haline getirilebilir.</li>
+<li>Birkaç değişkenlik bilgiyi içeren bir değişken, ayrı değişkenler haline getirilebilir.</li>
+<li>Değişken isimleri düzgün şekilde yazılmadıysa, bunlara isim verilebilir.</li>
+</ol>
+<p>Veri setimize bakarsak, <code>customerid</code> değişkeninin herhangi bir bilgi içermediğini, bu yüzden onu atmanın bir sorun yaratmayacağını anlayabiliriz. Aynı şekilde <code>jobedu</code> değişkeni içerisinde gözlem birimlerimiz hakkında 2 ayrı ve önemli bilginin taşındığı görülebilir. <code>jobedu</code> değişkeni içerisinden <code>job</code> ve <code>education</code> gibi yeni değişkenler üretmek mümkün.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># customerid değişkenini veri setinden atalım.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;customerid&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># jobedu değişkeni içerisindeki iş ve eğitim bilgilerini ayrı değişkenler olarak atayalım.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;job&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;jobedu&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;education&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;jobedu&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># içerisindeki bilgiyi aldığımız jobedu değişkenine artık ihtiyacımız yok,</span>
+<span class="c1"># bu değişkeni de atabiliriz.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;jobedu&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled2.png" alt="Untitled"></p>
+<h3 id="eksik-değerler">Eksik Değerler<a href="#eksik-değerler" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Veri setimiz ile herhangi istatistiki bir analiz yapmadan önce kesinlikle göz önünde bulundurmamız gereken bir diğer durum ise eksik değerlerdir. Verimiz içerisinde eksik değerler temelde 2 sebep ile bulunabilir.</p>
+<ol>
+<li>
+<p>Tamamen Rastgele Oluşan Eksik Değerler:</p>
+<p>Bu tarz veriler, veri seti içerisinde herhangi bir değişkene bağlı olmayan ve rastgele olarak oluşmuş eksik verilerdir.</p>
+</li>
+<li>
+<p>Rastgele olmayan eksik değerler:</p>
+<p>Bu tarz eksik değerler, diğer bazı değişkenlerle bulunduğu bağlantıdan dolayı ya da eksik olmasının da başka bir anlam taşıması sebebi ile eksiktir.</p>
+</li>
+</ol>
+<p>Veri setindeki eksik değerlere bir bakalım</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled3.png" alt="Untitled"></p>
+<p>Gördüğümüz gibi, veri seti içerisindeki 3 değişkende eksik değerlerimiz mevcut. Eksik değerlerle başa çıkabilmek için izleyebileceğimiz çeşitli yöntemler var ancak bu yöntemlerden hangisini tercih edeceğimiz elimizdeki veri setine göre değişecektir.</p>
+<ol>
+<li>
+<p>Eksik Değerleri Silmek:</p>
+<p>Bu yöntem ilk akla gelen ve en basit yöntem diyebiliriz. Eksik değer bulunduran gözlem birimlerini direkt olarak veri setinden çıkarıp, analizlere bu şekilde devam etmeyi hedefler. Eğer elimizdeki veri seti <em>yeterince büyük</em> ise bu yöntem rahatlıkla kullanılabilir.</p>
+<p>Artıları:</p>
+<ul>
+<li>Eksik değerlere sahip verilerin tamamen atılması, ileride kurulacak modeli sağlam ve doğru yapacaktır.</li>
+<li>Önemli bir bilgi içermeyen satırları silmiş olmak, veri setinde değersiz bir kalabalık olmamasını sağlayacaktır.</li>
+</ul>
+<p>Eksikleri:</p>
+<ul>
+<li>Gözlem ve bilgi kaybı</li>
+<li>Eksik Değer oranı fazla ise bulduğumuz sonuçlar gerçekçi olmaktan uzaklaşacaktır. Örneğin veri seti içerisindeki gözlemlerin %30unda boş değerler varsa ve bunları tamamen silersek, veri seti içerisindeki bilinin %30luk bir kısmını kaybettiğimiz için sonuçlarımız gerçek dünya ile uyumlu olmayabilir.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Boş olan gözlemleri veri setinin dışında bırakıyoruz.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span>
+</code></pre></div></li>
+<li>
+<p>Eksik değerleri başka değerler ile doldurmak:</p>
+<p>Sayısal değişkenler için kullanabileceğimiz bu yöntem, eksik olan verileri o değişkenin ortalaması, medyanı ya da mod değeri ile doldurmayı hedefler. Böylece eksik olan gözlem birimini atarak bilgi kaybetmek yerine, veri setinin yapısını bozmayacak bir değer ile doldurup analizlere devam edebilmeyi hedefler.</p>
+<p>Artıları:</p>
+<ul>
+<li>Veri seti küçük olduğunda daha iyi sonuçlar alındığı gözlenebilir.</li>
+<li>Veri kaybı yaşamayı önler.</li>
+</ul>
+<p>Eksileri:</p>
+<ul>
+<li>Tüm eksik değerleri aynı değer ile doldurmak veri setine belli bir yanlılık ve varyans kazandırır.</li>
+<li>Tek bir değer ataması yapmak, diğer atama yöntemlerine göre daha kötü sonuçlar verir.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># &#39;month&#39; değişkeninin modunu hesaplayıp, boş değerler yerine bu değeri veriyoruz.</span>
+<span class="n">month_mode</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">month_mode</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></li>
+<li>
+<p>Eşsiz bir kategori ataması yapmak:</p>
+<p>Kategorik değişkenlerin belli bir sayıda eşsiz değeri olabilir ve bunlara kategori ismi verilir. Örneğin cinsiyet değişkeninin alabileceği yalnızca iki farklı değişken vardır. Buradaki eksik değerlerimizi farklı bir kategori olarak adlandırıp işlemlerimize devam edebiliriz.</p>
+<p>Artıları:</p>
+<ul>
+<li>Yeni bir kategori ekleyerek veri kaybını önler.</li>
+<li>Tüm eksik değerleri tek bir kategori olarak gördüğü için <em>one hot encoding</em> yapıldıktan sonra daha düşük varyans ile karşılaşılır.</li>
+</ul>
+<p>Eksileri:</p>
+<ul>
+<li>Modele yeni bir değişken eklediği için kötü performans verebilir.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># yalnızca iki kategorisi olan &#39;response&#39; değişkeninde</span>
+<span class="c1"># bilinmeyen değerlerin tamamı U olarak atandı.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></li>
+<li>
+<p>Eksik Değerleri Tahmin Etmek:</p>
+<p>Eksik değeri olmayan değişkenleri kullanarak eksik değerleri tahmin edebiliriz. Bu yöntem eğer eksik değerlerde büyük varyans olmasını beklemiyorsak iyi sonuçlar verebilir. Örnek olarak doğrusal regresyon ile yaş değişkenindeki boş değerleri tahmin edebiliriz. Daha isabetli bir karar vermek istiyorsak tek bir algoritma yerine birden çok algoritma kullanıp, aralarından en isabetli olduğunu düşündüğümüz seçilebilir.</p>
+<p>Artıları:</p>
+<ul>
+<li>Eksik olan değerleri tahmin etmiş olmak model için bir gelişme sayılabilir.</li>
+<li>Model parametrelerinin yansız tahmincilerini bulmuş oluruz.</li>
+</ul>
+<p>Eksileri:</p>
+<ul>
+<li>Diğer değişkenler içerisinde eksik, yanlış gözlemler bulunması tahmin etmeye çalıştığımız gözlemleri de etkileyeceğinden yanlılık artabilir.</li>
+<li>Atanan değerlere gerçek değerlerin vekilleri olarak bakılmalı.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Veri seti içerisindeki sayısal değişkenleri seçiyoruz.</span>
+<span class="n">num_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">!=</span> <span class="s1">&#39;O&#39;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">df_with_null</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_without_null</span> <span class="o">=</span> <span class="n">df_with_null</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="c1"># Age haricinde tüm değişkenler</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">df_without_null</span><span class="p">[</span><span class="n">num_cols</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Yalnızca Age değişkeni</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">df_without_null</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span>
+
+<span class="c1"># modeli fit ediyoruz.</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">df_with_null</span><span class="p">[</span><span class="n">num_cols</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">predicted_age</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">predicted_age</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+</code></pre></div></li>
+<li>
+<p>Kategorik Değişken Kırılımı ile Atama Yapmak:</p>
+<p>Bu yöntem eksik değerleri ortalama, mod, medyan ile doldurma temeline dayanmakla birlikte, başka bir kategorik değişkenin sınıflarının ortalama, mod ya da medyanını kullanır. Örnek olarak veri setimizdeki gözlemlerin <code>job</code> değişkenine göre kırılımını alıp yaş ortalamalarına bakabiliriz. Bu şekilde meslek gruplarına göre yaş ortalamalarını bulmuş oluruz. Bu durum, boş olan tüm gözlemlere aynı değeri vermek yerine, daha isabetli bir şekilde atama yapmamızı sağlar.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&#34;job&#34;</span><span class="p">)[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># job değişkenine göre yaş ortalamalarını alıyoruz.</span>
+<span class="c1"># boş olan gözlemlere ilgili mesleğe ait yaş ortalamasını atıyoruz.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;job&#39;</span><span class="p">)[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">))</span>
+</code></pre></div></li>
+<li>
+<p>KNN Imputer ile eksik değer doldurmak:</p>
+<p>KNN uzaklık temelli bir makine öğrenmesi algoritmasıdır. Boş gözlem değerlerini doldurmak için de kullanılabilen bu yöntemde</p>
+</li>
+</ol>
+<h2 id="aykırı-değerler">Aykırı Değerler<a href="#aykırı-değerler" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Diğer gözlemlerden <em>kayda değer derecede</em> uzak olan gözlemlere aykırı veya uç değer denir. Aykırı değer problemi, değişkenin kendi içerisindeki değerlerden kaynaklanıyor olabilir. Buna Univariate Outliers(Tek değişkenli aykırı değer) denir. Aynı zamanda başka bir değişken ile olan ilişki incelenirken bu iki değişkenin hareketi birlikte incelendiğinde aykırı olan bazı gözlemlere rastlanabilir. Bunlara Multivariate Outliers (Çok değişkenli aykırı değer) denir.</p>
+<p><img src="https://example.com/EDA/Untitled4.png" alt="Untitled"></p>
+<p>Aykırı değerlerin sebebini anladıktan sonra, bu değerleri veri setimizden atabilir, yerine başka değerler atayabilir ya da hiçbir şey yapmamayı tercih edebiliriz.</p>
+<ol>
+<li>
+<p>Aykırı değerlere ulaşmak:</p>
+<ol>
+<li>
+<p><em>Grafik Yöntem:</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled5.png" alt="Untitled"></p>
+<p>Boxplot yardımı ile aykırı değerlerin varlığı hakkında hızlı bir fikir sahibi olabiliriz. Kutunun sağ ve solundaki çizgiler verimizin 1. ve 3. kartillerini, ortadaki çizgi ise medyan değerini ifade ediyor. Kutunun sağ ve sol uçlarındaki çizgiler ise alt ve üst sınırlarımızı ifade ediyor. Bu çizgilerin dışarısında kalan ve nokta olarak gösterilen değerler de aykırı değer olarak adlandırılır.</p>
+</li>
+<li>
+<p><em>Aralık hesabı ile ulaşma:</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 1. ve 3. kantiller hesaplanır</span>
+<span class="n">q1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="c1"># bunların farkı bize kartiller arası mesafeyi verir.</span>
+<span class="n">iqr</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
+<span class="c1"># üst sınıra 1.5 iqr ekleyip, alt sınırdan 1.5 iqr çıkararak alt ve üst sınır</span>
+<span class="c1"># bulunmuş olur.</span>
+<span class="n">up</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">iqr</span>
+<span class="n">low</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">iqr</span>
+<span class="c1"># alt sınırdan küçük ya da üst sınırdan büyük olanlar</span>
+<span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">up</span><span class="p">)]</span>
+<span class="c1"># aykırı değere sahip gözlem birimlerinin indexleri</span>
+<span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">up</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span>
+</code></pre></div></li>
+<li>
+<p>Aykırı değer problemini çözmek:</p>
+</li>
+<li>
+<p><em>Silme:</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">up</span><span class="p">))]</span>
+</code></pre></div><p>~ yaptığımız sorgu sonucunda çıkan değerin/değerlerin değilini alan bir operatördür. Bu örnek için, yaşı alt sınırdan küçük veya üst sınırdan büyük olanlar parantez içerisinde bulunur. Daha sonrasında ~ operatörü nedeniyle olmayanlar seçilir. Yani sonuç olarak alt sınırdan büyük ve üst sınırdan küçük değerleri bize döndürür. Böylece aykırı değerleri veri setimiz dışarısında bırakmış oluruz.</p>
+</li>
+<li>
+<p><em>Baskılama:</em></p>
+<p>Gözlemler içerisinde alt sınırdan küçük ve üst sınırdan büyük olan değerleri bu sınırlara eşitleyecek şekilde baskılama işlemi yapılabilir.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># alt sınırdan küçük olan değerleri alt sınır ile değiştiriyoruz.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">),</span> <span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">low</span>
+<span class="c1"># üst sınırdan büyük olan değerleri üst sınır ile değiştiriyoruz.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">up</span><span class="p">),</span> <span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">up</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled6.png" alt="Untitled"></p>
+<p>Bu işlemlerden sonra boxplot&rsquo;a tekrar baktığımızda herhangi bir aykırı gözlem kalmadığını görüyoruz. Baskılama ya da silme işlemlerinde bilgi kaybı oluştuğu için bu işlemler yapılırken bu durum mutlaka göz önünde bulundurulmalıdır.</p>
+</li>
+</ol>
+<h2 id="çok-değişkenli-aykırı-değer-analizi">Çok Değişkenli Aykırı Değer Analizi<a href="#çok-değişkenli-aykırı-değer-analizi" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<h3 id="local-outlier-factor-lof">Local Outlier Factor (LOF)<a href="#local-outlier-factor-lof" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>LOF veri seti içerisindeki aykırı değerleri saptamaya yarayan bir gözetimsiz makine öğrenmesi algoritmasıdır. Her örnek değeri için bir yerel yoğunluk puanı oluşturulur ve bunlara ağırlık verilir. Tüm puanlar karşılaştırılarak, veri setinde düşük puana sahip olan gözlemlerin anomali/aykırı değer olarak tanımlanması sağlanır.</p>
+<blockquote>
+<p>&ldquo;The local outlier factor is based on a concept of a local density, where locality is given by  nearest neighbors, whose distance is used to estimate the density. By comparing the local density of an object to the local densities of its neighbors, one can identify regions of similar density, and points that have a substantially lower density than their neighbors. These are considered to be outliers.&rdquo;</p>
+</blockquote>
+<p><img src="https://example.com/EDA/Untitled7.png" alt="Untitled"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="c1"># LOF modelini kuralım</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="c1"># sayısal değişkenlerimiz için fit edelim.</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">num_cols</span><span class="p">])</span>
+<span class="n">df_scores</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">negative_outlier_factor_</span>
+<span class="c1"># LOF skorları sıralanmış numpy arrayine bakalım</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">df_scores</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">]</span>
+<span class="c1"># bu skorları grafik üzerinden incelemek istersek</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">df_scores</span><span class="p">))</span>
+<span class="n">scores</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;.-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled8.png" alt="Untitled"></p>
+<p><img src="https://example.com/EDA/Untitled9.png" alt="Untitled"></p>
+<p>Aykırı olmayan değerlerin genellikle daha yüksek LOF puanına sahip olacağı söylenebilir. Bulduğumuz puanlar arasından bir noktayı sınır olarak belirleyip bunun altında kalan değerleri veri setimizden çıkarmamız gerekir.</p>
+<p>Hem grafikten, hem de puanlarımızın olduğu array üzerinden inceleme yapabiliriz. Grafik üzerinde <em>eğim</em>de ciddi bir değişikliğin olduğu bir nokta seçilmelidir. Bu noktalara karşılık gelen değerler puan arrayimizde görülebiliyor. Seçtiğimiz sınır ne kadar büyük olursa o kadar çok gözlem aykırı değer olarak tanımlanacağı ve veri setinden atılacağı için, puanlarda birkaç ciddi atlama yapan kritik noktalar belirlenmeli ve seçilmeli. Bu örnek için sınırımız 7 olarak seçilebilir.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">df_scores</span><span class="p">)[</span><span class="mi">7</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df_scores</span> <span class="o">&lt;</span> <span class="n">th</span><span class="p">]</span> <span class="c1"># aykırı gözlemlerin kendisine ulaşma</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df_scores</span> <span class="o">&lt;</span> <span class="n">th</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># aykırı gözlemlerin sayısını görme</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df_scores</span> <span class="o">&lt;</span> <span class="n">th</span><span class="p">]</span><span class="o">.</span><span class="n">index</span> <span class="c1"># aykırı gözlemlerin index bilgisine ulaşma</span>
+</code></pre></div></li>
+</ol>
+<h2 id="tek-değişkenli-veri-analizi">Tek Değişkenli Veri Analizi<a href="#tek-değişkenli-veri-analizi" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<p>Veri seti içerisindeki tek bir değişkene odaklanarak yaptığımız analizlere, tek değişkenli veri analizi denir.  Burası değişken türlerine bakmak için doğru bir nokta olabilir.</p>
+<h3 id="kategorik-değişkenler">Kategorik Değişkenler<a href="#kategorik-değişkenler" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Kategorik değişkenler, yalnızca belli kategorik değerleri içerisinde bulundurabilen değişkenlerdir. Örneğin sayısal bir değişken olan yaş değişkenini, çocuk, genç, yetişkin gibi 4 kategoriye ayırırsak artık gerçek yaş değerlerine değil düştükleri aralıklara göre kategorilere bakıyor oluruz. Bu kategoriler arasında hiyerarşik bir ilişki varsa ordinal, yoksa nominal kategorik değişken olarak tanımlanabilir.</p>
+<ol>
+<li>
+<p>Nominal Kategorik Değişkenler:</p>
+<p>Kategoriler arasında herhangi hiyerarşik bir yapı bulunmayan kategorik veriler için kullanılan isimdir. Örneğin cinsiyet, kan grubu, doğum yeri, medeni durum.</p>
+</li>
+<li>
+<p>Ordinal Kategorik Değişkenler:</p>
+<p>Ordinal veriler de yine kategorik veri türündendir. Fakat değerleri arasında sıralı bir ilişki bulunmaktadır. “Daha fazla” ifadesi ile kullanılabilirler ancak nekadar daha fazla olduğunun ölçüsünü veremezler. Örneğin: Eğitim Düzeyi, Sosyo ekonomik ölçek skorları gibi. Ordinal kategorik veriler, nominal verilere göre daha fazla bilgi taşır.</p>
+</li>
+</ol>
+<h3 id="sayısal-değişkenler">Sayısal Değişkenler<a href="#sayısal-değişkenler" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Üzerinde matematiksel işlemler uygulayabildiğimiz değişkenlere sayısal değişkenler denir. Sürekli ve kesikli olarak iki ayrı kategoride incelenebilirler.</p>
+<ol>
+<li>
+<p>Kesikli Değişken:</p>
+<p>Yalnızca belli bir aralıktaki tam sayı değerlerini alabilen değişkenlere kesikli değişken denir. Örneğin sahip olunan araba sayısı.</p>
+</li>
+<li>
+<p>Sürekli Değişken:</p>
+<p>Sürekli değişkenler tüm değerleri alabilir. Örneğin ağırlık, boy.</p>
+</li>
+</ol>
+<h3 id="nominal-değişken-analizi">Nominal Değişken Analizi<a href="#nominal-değişken-analizi" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Nominal kategorik değişkenin ne demek olduğuna baktık, veri seti içerisindeki <code>job</code> değişkenimiz buna güzel bir örnek olabilir. <code>job</code> değişkeni kategorik bir değişken olduğundan bar plot ile grafiğini görebiliriz.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># job değişkeninin nasıl dağıldığını görmek için</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;job&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Dağılımı bar plot şeklinde görmek için</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;job&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled10.png" alt="Untitled"></p>
+<p>Yukarıdaki grafik sayesinde, veri seti içerisinde bulunan kişiler arasında en yaygın meslek grubunun mavi yaka olduğunu söyleyebiliriz.</p>
+<h3 id="ordinal-değişken-analizi">Ordinal Değişken Analizi<a href="#ordinal-değişken-analizi" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>Veri seti içerisindeki <code>education</code> değişkenimizin ordinal kategorik bir değişken olduğu söylenebilir.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># education değişkeninin nasıl dağıldığını görmek için</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;education&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># pie chart ile kategorilerin gösterimi</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;education&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled11.png" alt="Untitled"></p>
+<p>Veri seti içerisindeki insanların yarısının lise mezunu olduğunu ve onları %30 civarında üniversite mezunlarının takip ettiğini görebiliriz.</p>
+<h2 id="iki-değişkenli-veri-analizi">İki Değişkenli Veri Analizi<a href="#iki-değişkenli-veri-analizi" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<ol>
+<li>
+<p>Sayısal - Sayısal Analizi:</p>
+<p>İki sayısal değişkenin aynı anda incelenmesi için kullanabileceğimiz bazı yöntemler:</p>
+<ul>
+<li>Scatter Plot (Saçılım grafiği)</li>
+<li>Pair Plot</li>
+<li>Korelasyon matrisi</li>
+</ul>
+<ol>
+<li>
+<p>Scatter Plot:</p>
+<p>Saçılım grafiği, iki değişkenin birlikte hareketlerini incelemek için kullanılan bir grafik yöntemdir. Bu grafikte iki değişken arasında doğrusal bir ilişki olup olmadığı rahatlıkla görülebilir.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Salary vs Balance&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">salary</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled12.png" alt="Untitled"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Age vs Balance&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled13.png" alt="Untitled"></p>
+</li>
+<li>
+<p>Pair Plot:</p>
+<p>Aynı 3 değişken için pair plot grafiklerini de çizdirelim. Pair plot köşegenlerinde histogram, köşegen dışında ise kesişen 2 değişkenin saçılım grafiklerini bize verir. Tek tek tüm saçılım graifklerine bakmaktansa veri içerisindeki tüm sayısal değişkenlerin saçılım ve histogramlarını tek bir grafikte görmemizi sağlar.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">,</span> <span class="s1">&#39;balance&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled14.png" alt="Untitled"></p>
+</li>
+<li>
+<p>Korelasyon Matrisi:</p>
+<p>Değişkenler arasında doğrusal bir bağlantı olup olmadığını, varsa da ne kadar kuvvetli ya da zayıf olduğunu ve yönünü belirten korelasyon çok değişkenli veri analizinde sıklıkla başvurulan bir yöntemdir. Hem tablo olarak hem de ısı haritası olarak grafiğini çıkarmak mümkündür.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled15.png" alt="Untitled"></p>
+<p>Korelasyon değerleri +1e yaklaştıkça güçlü pozitif doğrusal bağlantıyı, -1e yaklaştıkça da güçlü negatif doğrusal bağlantıyı işaret eder. 0&rsquo;a yakın olduğunda ise değişkenler arasında doğrusal bir bağlantı bulunmadığı yorumu yapılabilir.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Sayısal - Kategorik Değişken Analizi:</p>
+<p>Kategorik ve sayısal değişkenleri aynı anda incelemek için genellikle kırılımlar kullanılır ve bu kırılımlar sonrasında sayısal değişkenin ortalama, medyan gibi değerlerine bakılır</p>
+<p><code>salary</code> ve <code>response</code> değişkenlerimize bakalım</p>
+<p><code>response</code> değerlerine göre ortalama <code>salary</code> nasıl dağılıyor öncelikle buna bakalım.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">)[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled16.png" alt="Untitled"></p>
+<p><code>response</code>kırılımında maaşlar arasında ciddi bir farklılık olmadığını gözlemliyoruz. Aynı şekilde medyan değerlerini de inceleyelim</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">)[</span><span class="s1">&#39;salary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled17.png" alt="Untitled"></p>
+<p>Medyan değerleri arasında da anlamlı bir farklılık olmadığını gördük. Response değişkenine verilen evet ya da hayır cevaplarının maaş üzerinde bir değişiklik yaratmadığı görülüyor. Ancak gerçekten bir farklılık yaratıp yaratmadığını görmek için, bir de boxplot ile deneyelim.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">response</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">salary</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled18.png" alt="Untitled"></p>
+<p>Ortalama ve medyan değerlerine göre daha farklı bir sonuca ulaştığımız açıkça görülebilir. Evet olarak yanıt veren müşterilerin kutu grafiği incelendiğinde kutunun daha yukarıda olduğu görülebiliyor. Yani Evet cevabını veren müşterilerin maaşları yüksek olmaya daha yatkın gibi bir yorum buradan çıkarabiliriz. Ancak bu yorumun anlamlı olup olmadığı istatistiksel yöntemler kullanarak test edilmelidir.</p>
+</li>
+<li>
+<p>Kategorik - Kategorik Değişken Analizi:</p>
+<p>Hedef değişkenimiz olan <code>response</code> içerisinde &lsquo;evet&rsquo; ve &lsquo;hayır&rsquo; olarak iki değer taşıyor. Bunları 1 ve 0 olarak kodlayıp analizimize bu şekilde devam edelim.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;response_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">response</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">response_rate</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled19.png" alt="Untitled"></p>
+<p>Şimdi de <code>response</code> değişkenimizin medeni hallere göre nasıl dağıldığına bakalım.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;marital&#39;</span><span class="p">)[</span><span class="s1">&#39;response_rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled20.png" alt="Untitled"></p>
+<p>Yukarıdaki grafik sayesinde, bekar insanların aramaları daha fazla yanıtladığı çıkarımında bulunabiliriz.</p>
+</li>
+</ol>
+<h3 id="çok-değişkenli-veri-analizi">Çok Değişkenli Veri Analizi<a href="#çok-değişkenli-veri-analizi" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<p>İkiden fazla değişken ile yapılan analizlere çok değişkenli veri analizi denir.</p>
+<p><code>education</code>, <code>marital</code>, <code>response_rate</code> değişkenlerimiz birbirlerini nasıl etkiliyormuş bir bakalım.</p>
+<p>Bunu yapmak için pivot table kullanabiliriz. Bu 3 değişkeni kullanarak bir pivot table elde edelim.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># pivot table</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;education&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;marital&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;response_rate&#39;</span><span class="p">)</span>
+<span class="c1"># heatmap</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlGn&#39;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mf">0.117</span><span class="p">)</span>
+</code></pre></div><p><img src="https://example.com/EDA/Untitled21.png" alt="Untitled"></p>
+<p><img src="https://example.com/EDA/Untitled22.png" alt="Untitled"></p>
+<p>Isı haritasına bakarak, evli ve ilkokul mezunu insanların pazarlama aramalarını en az cevaplayan grup olduğunu, üniversite mezunu bekar insanların ise en çok cevaplayan grup olduğu çıkarımında bulunabiliriz.</p>
+
+		</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2022 <a href="https://example.com">Rıfatcan Uzunok</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://example.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+
+	<script src="https://example.com/js/bundle.min.7d8545daa55d62427355498dd8da13f98ff79a7938ce7d2a5e2ae1ec0de3beb8.js" integrity="sha256-fYVF2qVdYkJzVUmN2NoT+Y/3mnk4zn0qXirh7A3jvrg=" crossorigin="anonymous"></script>
+	
+
+</body>
+
+</html>
