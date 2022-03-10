@@ -4,7 +4,7 @@ date: 2022-02-24
 title: Keşifçi Veri Analizi
 ---
 
-## Keşifçi Veri Analizi (/EDA) Nedir?
+## Keşifçi Veri Analizi (EDA) Nedir?
 
 Keşifçi veri analizi, elimizdeki veri setinin ana bileşenlerinin özetini çıkararak ve genelde grafikler kullanarak anlam çıkarmaya yarayan bir analiz yöntemidir. Özellikle bir makine öğrenmesi modeli kurmadan önce bu aşama kritik derecede önemlidir. Hem elimizde veri seti hakkında bize önemli fikirler verip, veriyi daha iyi tanımamızı sağlar hem de makine öğrenmesi algoritmalarına veri setini düzgün bir şekilde verdiğimizden emin olmamızı sağlar. Histogram, kutu grafiği ve saçılım grafiği sıklıkla başvurulan grafik yöntemlerdendir.
 
@@ -30,7 +30,7 @@ Herkesin ulaşabileceği veri kaynaklarıdır. Herhangi ekstra bir izne ihtiyaç
 
 - [https://www.kaggle.com/](https://www.kaggle.com/)
 - [https://archive.ics.uci.edu/ml/index.php](https://archive.ics.uci.edu/ml/index.php)
-- [https://github.com/awesom/EDAta/awesome-public-datasets](https://github.com/awesom/EDAta/awesome-public-datasets)
+- [https://github.com/awesomedata/awesome-public-datasets](https://github.com/awesomedata/awesome-public-datasets)
 
 Keşifçi Veri Analizine başlayabilmemiz için öncelikle veri setini bulmamız gerekiyordu. Açık veri seti kaynaklarına birkaç örnek verdiğimize göre, Veri temizleme adımına geçebiliriz.
 
